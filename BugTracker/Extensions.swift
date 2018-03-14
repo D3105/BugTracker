@@ -6,7 +6,7 @@
 //  Copyright © 2018 D. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension Date {
     var formatted: String {

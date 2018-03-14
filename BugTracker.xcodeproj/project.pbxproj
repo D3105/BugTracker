@@ -16,6 +16,7 @@
 		03355DD42058161200D99487 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DD32058161200D99487 /* CommentTableViewCell.swift */; };
 		03355DD6205826AF00D99487 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DD5205826AF00D99487 /* PhotoCollectionViewCell.swift */; };
 		03740EAB2059147D004B8014 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03740EAA2059147D004B8014 /* Extensions.swift */; };
+		03740EAD2059BF21004B8014 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03740EAC2059BF21004B8014 /* Row.swift */; };
 		03BD247B2056DF1900037AB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD247A2056DF1900037AB1 /* AppDelegate.swift */; };
 		03BD24802056DF1900037AB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03BD247E2056DF1900037AB1 /* Main.storyboard */; };
 		03BD24822056DF1900037AB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03BD24812056DF1900037AB1 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		03355DD32058161200D99487 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		03355DD5205826AF00D99487 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		03740EAA2059147D004B8014 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		03740EAC2059BF21004B8014 /* Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		03BD24772056DF1900037AB1 /* BugTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BugTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03BD247A2056DF1900037AB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03BD247F2056DF1900037AB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -84,15 +86,16 @@
 				03BD248C2056E45A00037AB1 /* MasterViewController.swift */,
 				03BD248E2056E7AA00037AB1 /* DetailViewController.swift */,
 				03355DC72057BC6D00D99487 /* SplitViewController.swift */,
-				03BD24902056E9CB00037AB1 /* Problem.swift */,
 				03355DC92057DEF500D99487 /* ProblemTableViewCell.swift */,
 				03355DCB2057DF5B00D99487 /* SolutionTableViewCell.swift */,
 				03355DD32058161200D99487 /* CommentTableViewCell.swift */,
+				03355DD5205826AF00D99487 /* PhotoCollectionViewCell.swift */,
+				03BD24902056E9CB00037AB1 /* Problem.swift */,
 				03355DCD2057DF7700D99487 /* Solution.swift */,
 				03355DCF2057E01C00D99487 /* Participant.swift */,
 				03355DD12057F1A800D99487 /* Comment.swift */,
-				03355DD5205826AF00D99487 /* PhotoCollectionViewCell.swift */,
 				03740EAA2059147D004B8014 /* Extensions.swift */,
+				03740EAC2059BF21004B8014 /* Row.swift */,
 			);
 			path = BugTracker;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				03BD248D2056E45A00037AB1 /* MasterViewController.swift in Sources */,
 				03355DCC2057DF5B00D99487 /* SolutionTableViewCell.swift in Sources */,
 				03355DCE2057DF7700D99487 /* Solution.swift in Sources */,
+				03740EAD2059BF21004B8014 /* Row.swift in Sources */,
 				03BD247B2056DF1900037AB1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

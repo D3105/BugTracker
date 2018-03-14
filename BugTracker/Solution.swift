@@ -8,11 +8,20 @@
 
 import UIKit
 
-struct Solution {
+class Solution {
     let description: String
     let photos: [UIImage]
     let rating: Int
     let date: Date
     let comments: [Comment]
-    let participant: Participant
+    unowned let participant: Participant
+    
+    init(description: String, photos: [UIImage], rating: Int, date: Date, comments: [Comment], participant: Participant) {
+        self.description = description
+        self.photos = photos
+        self.rating = rating
+        self.date = date
+        self.comments = comments
+        self.participant = participant
+    }
 }

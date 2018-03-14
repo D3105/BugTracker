@@ -10,8 +10,13 @@ import UIKit
 
 class DetailViewController: UITableViewController {
     
+    var collectionViewPhotos = [UICollectionView: [UIImage]]()
+    var rows = [Row]()
+    
     var problem: Problem? {
         didSet {
+            rows = problem!.rows
+            collectionViewPhotos.removeAll()
             refreshUI()
         }
     }
@@ -35,7 +40,7 @@ class DetailViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return problem?.rowCount ?? 0
+        return rows.count
     }
     
     @objc func openProfile(_ button: UIButton) {
@@ -46,35 +51,35 @@ class DetailViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        switch problem![indexPath.row] {
-        //problem cell
-        case (nil, nil):
+        switch rows[indexPath.row] {
+        case .problem:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProblemCell", for: indexPath) as! ProblemTableViewCell
             cell.nameLabel.text = problem!.name
             cell.ratingLabel.text = "\(problem!.rating)"
             cell.descriptionLabel.text = problem!.description
             cell.locationLabel.text = problem!.location
             cell.tagsLabel.text = problem!.tags.joined(separator: ",")
-            cell.participantButton.titleLabel?.text = problem!.participant.name
+            cell.participantButton.setTitle(problem!.participant.name, for: .normal)
             cell.dateLabel.text = problem!.date.formatted
+            collectionViewPhotos[cell.photoCollectionView] = problem!.photos
+            cell.photoCollectionView.reloadData()
             cell.participantButton.addTarget(self, action: #selector(openProfile(_:)), for: .touchUpInside)
             return cell
-        case (let solution?, nil):
+        case let .solution(solution):
             let cell = tableView.dequeueReusableCell(withIdentifier: "SolutionCell", for: indexPath) as! SolutionTableViewCell
             cell.descriptionLabel.text = solution.description
             cell.ratingLabel.text = "\(solution.rating)"
-            cell.participantButton.titleLabel?.text = solution.participant.name
+            cell.participantButton.setTitle(solution.participant.name, for: .normal)
             cell.dateLabel.text = solution.date.formatted
+            collectionViewPhotos[cell.photoCollectionView] = solution.photos
+            cell.photoCollectionView.reloadData()
             return cell
-        case (nil, let comment?):
+        case let .comment(comment):
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentTableViewCell
             cell.commentLabel.text = comment.text
             cell.dateLabel.text = comment.date.formatted
-            cell.participantButton.titleLabel?.text = comment.participant.name
+            cell.participantButton.setTitle(comment.participant.name, for: .normal)
             return cell
-        default:
-            fatalError()
         }
     }
 
@@ -93,12 +98,12 @@ class DetailViewController: UITableViewController {
 
 extension DetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 31
+        return collectionViewPhotos[collectionView]!.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCollectionViewCell
-        cell.photo.image = #imageLiteral(resourceName: "Placeholder")
+        cell.photo.image = collectionViewPhotos[collectionView]![indexPath.row]
         return cell
     }
 }
@@ -107,6 +112,12 @@ extension DetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let selectedCell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
         openProfile(UIButton())
+    }
+}
+
+extension DetailViewController: ProblemSelectionDelegate {
+    func problemSelected(_ newProblem: Problem) {
+        problem = newProblem
     }
 }
 

@@ -9,7 +9,7 @@
 import Foundation
 
 struct Comment {
-    let date: Date
     let text: String
+    let date: Date
     let participant: Participant
 }

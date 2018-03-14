@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Problem {
+class Problem {
     let name: String
     let description: String
     let rating: Int
@@ -18,46 +18,34 @@ struct Problem {
     let date: Date
     let solutions: [Solution]
     let comments: [Comment]
-    let participant: Participant
+    unowned let participant: Participant
     
-    var rowCount: Int {
-        var count = comments.count + 1   // +1 for problem existence
-        for solution in solutions {
-            count += solution.comments.count + 1    // +1 for solution existence
-        }
-        return count
+    init(name: String, description: String, rating: Int,
+         photos: [UIImage], location: String, tags: [String],
+         date: Date, solutions: [Solution], comments: [Comment],
+         participant: Participant) {
+        self.name = name
+        self.description = description
+        self.rating = rating
+        self.photos = photos
+        self.location = location
+        self.tags = tags
+        self.date = date
+        self.solutions = solutions
+        self.comments = comments
+        self.participant = participant
     }
     
-    subscript (row: Int) -> (Solution?, Comment?) {
-        //problem
-        if row == 0 {
-            return (nil, nil)
-        }
+    var rows: [Row] {
+        var result: [Row] = [.problem] + comments.map { .comment($0) }
         
-        var count = 0
-        
-        //problem comments
-        for problemComment in comments {
-            count += 1
-            if count == row {
-                return (nil, problemComment)
-            }
-        }
-        
-        //solutions
         for solution in solutions {
-            count += 1
-            if count == row {
-                return (solution, nil)
-            }
-            for solutionComment in solution.comments {
-                count += 1
-                if count == row {
-                    return (nil, solutionComment)
-                }
+            result.append(Row.solution(solution))
+            for comment in solution.comments {
+                result.append(Row.comment(comment))
             }
         }
         
-        fatalError("Index out of range")
+        return result
     }
 }
