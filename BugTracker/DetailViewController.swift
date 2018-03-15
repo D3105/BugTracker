@@ -11,13 +11,15 @@ import UIKit
 class DetailViewController: UITableViewController {
     
     var collectionViewPhotos = [UICollectionView: [UIImage]]()
+    var stepperLabels = [UIStepper: UILabel]()
     var rows = [Row]()
     
     var problem: Problem? {
         didSet {
-            rows = problem!.rows
+            rows = problem!.rowRepresentation
             collectionViewPhotos.removeAll()
-            refreshUI()
+            stepperLabels.removeAll()
+            refreshUI()            
         }
     }
     
@@ -44,41 +46,76 @@ class DetailViewController: UITableViewController {
     }
     
     @objc func openProfile(_ button: UIButton) {
-        let alert = UIAlertController(title: "D", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Profile", message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func stepperChangeValue(_ stepper: UIStepper) {
+        stepper.isEnabled = false
+        stepperLabels[stepper]!.text = String(Int(stepper.value))
+    }
+    
+    func configure(participantButton: UIButton, for message: Message) {
+        participantButton.setTitle(message.participant.name, for: .normal)
+        participantButton.addTarget(self, action: #selector(openProfile(_:)), for: .touchUpInside)
+    }
+    
+    func configure(stepper: UIStepper, for voteable: Voteable) {
+        stepper.value = Double(voteable.rating)
+        stepper.addTarget(self, action: #selector(stepperChangeValue(_:)), for: .touchUpInside)
+    }
+    
+    func configure(photoCollectionView: UICollectionView, for viewable: Viewable) {
+        collectionViewPhotos[photoCollectionView] = viewable.photos
+        photoCollectionView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch rows[indexPath.row] {
         case .problem:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProblemCell", for: indexPath) as! ProblemTableViewCell
+            
+            //configure labels
             cell.nameLabel.text = problem!.name
             cell.ratingLabel.text = "\(problem!.rating)"
-            cell.descriptionLabel.text = problem!.description
+            cell.descriptionLabel.text = problem!.text
             cell.locationLabel.text = problem!.location
             cell.tagsLabel.text = problem!.tags.joined(separator: ",")
-            cell.participantButton.setTitle(problem!.participant.name, for: .normal)
             cell.dateLabel.text = problem!.date.formatted
-            collectionViewPhotos[cell.photoCollectionView] = problem!.photos
-            cell.photoCollectionView.reloadData()
-            cell.participantButton.addTarget(self, action: #selector(openProfile(_:)), for: .touchUpInside)
+            
+            stepperLabels[cell.stepper] = cell.ratingLabel
+            
+            configure(stepper: cell.stepper, for: problem!)
+            configure(participantButton: cell.participantButton, for: problem!)
+            configure(photoCollectionView: cell.photoCollectionView, for: problem!)
+            
             return cell
         case let .solution(solution):
             let cell = tableView.dequeueReusableCell(withIdentifier: "SolutionCell", for: indexPath) as! SolutionTableViewCell
-            cell.descriptionLabel.text = solution.description
+            
+            //configure labels
+            cell.descriptionLabel.text = solution.text
             cell.ratingLabel.text = "\(solution.rating)"
-            cell.participantButton.setTitle(solution.participant.name, for: .normal)
             cell.dateLabel.text = solution.date.formatted
-            collectionViewPhotos[cell.photoCollectionView] = solution.photos
-            cell.photoCollectionView.reloadData()
+            
+            stepperLabels[cell.stepper] = cell.ratingLabel
+            
+            configure(stepper: cell.stepper, for: solution)
+            configure(participantButton: cell.participantButton, for: solution)
+            configure(photoCollectionView: cell.photoCollectionView, for: solution)
+            
             return cell
         case let .comment(comment):
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentTableViewCell
+            
+            //configure labels
             cell.commentLabel.text = comment.text
             cell.dateLabel.text = comment.date.formatted
-            cell.participantButton.setTitle(comment.participant.name, for: .normal)
+            
+            configure(participantButton: cell.participantButton, for: comment)
+            
             return cell
         }
     }

@@ -20,66 +20,65 @@ class MasterViewController: UITableViewController {
     static let date = Date(timeIntervalSinceNow: 0)
     
     var problems = [
-        Problem(name:  "Снег с потолка",
-                description: "уже весна вроде",
+        Problem(text: "уже весна вроде",
+                date: date,
+                participant: participant,
+                name:  "Снег с потолка",
                 rating: 31,
                 photos: [#imageLiteral(resourceName: "swift"), #imageLiteral(resourceName: "Placeholder")],
                 location: "2-506",
                 tags: ["потолок", "снег", "2-й корпус"],
-                date: date,
                 solutions: [
-                    Solution(description: "дело было так...",
+                    Solution(text: "дело было так...",
+                             date: date,
+                             participant: participant,
                              photos: [#imageLiteral(resourceName: "Placeholder"), #imageLiteral(resourceName: "Placeholder"), #imageLiteral(resourceName: "swift")],
                              rating: 5,
-                             date: date,
                              comments: [
-                                Comment(text: "тестовый комментарий",
+                                Message(text: "тестовый комментарий",
                                         date: date,
                                         participant: participant)
-                            ],
-                             participant: participant)],
-                comments: [],
-                participant: participant),
-        Problem(name:  "Дверь не закрываеться",
-                description: "во время ветра дверь постоянно открываеться, лапка не засчелкиваеться до конца",
+                            ])],
+                comments: []),
+        Problem(text: "во время ветра дверь постоянно открываеться, лапка не засчелкиваеться до конца",
+                date: date,
+                participant: participant,
+                name:  "Дверь не закрываеться",
                 rating: 5,
                 photos: [#imageLiteral(resourceName: "swift"), #imageLiteral(resourceName: "swift"), #imageLiteral(resourceName: "swift")],
                 location: "2-403",
                 tags: ["дверь", "2-й корпус", "не закрываеться"],
-                date: date,
                 solutions: [],
-                comments: [],
-                participant: participant),
-        Problem(name:  "Пожарный шкафчик",
-                description: "надоел, не закрываеться, поэтому постоянно открыт и мешает ходить",
+                comments: []),
+        Problem(text: "надоел, не закрываеться, поэтому постоянно открыт и мешает ходить",
+                date: date,
+                participant: participant, name:  "Пожарный шкафчик",
                 rating: 95,
                 photos: [],
                 location: "коридор 2-400",
                 tags: ["2-й корпус", "не закрываеться"],
-                date: date,
                 solutions: [],
-                comments: [],
-                participant: participant),
-        Problem(name:  "Монитор с полосами",
-                description: "почините монитор или купите новый, полосы закрывают весь екран",
+                comments: []),
+        Problem(text: "почините монитор или купите новый, полосы закрывают весь екран",
+                date: date,
+                participant: participant,
+                name:  "Монитор с полосами",
                 rating: 0,
                 photos: [],
                 location: "11-206",
                 tags: ["11-й корпус", "монитор"],
-                date: date,
                 solutions: [],
-                comments: [],
-                participant: participant),
-        Problem(name:  "Колесико мыши не крутиться",
-                description: "а у меня курс автокад, компютеров лишних нет",
+                comments: []),
+        Problem(text: "а у меня курс автокад, компютеров лишних нет",
+                date: date,
+                participant: participant,
+                name:  "Колесико мыши не крутиться",
                 rating: 21,
                 photos: [],
                 location: "первый копютер у входа 2-306",
                 tags: ["компютер", "2-й корпус", "срочно"],
-                date: date,
                 solutions: [],
-                comments: [],
-                participant: participant)
+                comments: [])
     ]
     
     override func viewDidLoad() {
@@ -115,6 +114,10 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedProblem = problems[indexPath.row]
         delegate?.problemSelected(selectedProblem)
+        
+        if let detailViewController = delegate as? DetailViewController {
+            splitViewController?.showDetailViewController(detailViewController, sender: nil)
+        }
     }
     
 

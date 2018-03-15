@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03338427205B0EF700DAEBD6 /* Voteable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03338426205B0EF700DAEBD6 /* Voteable.swift */; };
+		03338429205B0F4100DAEBD6 /* Viewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03338428205B0F4100DAEBD6 /* Viewable.swift */; };
 		03355DC82057BC6D00D99487 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DC72057BC6D00D99487 /* SplitViewController.swift */; };
 		03355DCA2057DEF500D99487 /* ProblemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DC92057DEF500D99487 /* ProblemTableViewCell.swift */; };
 		03355DCC2057DF5B00D99487 /* SolutionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DCB2057DF5B00D99487 /* SolutionTableViewCell.swift */; };
 		03355DCE2057DF7700D99487 /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DCD2057DF7700D99487 /* Solution.swift */; };
 		03355DD02057E01C00D99487 /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DCF2057E01C00D99487 /* Participant.swift */; };
-		03355DD22057F1A800D99487 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DD12057F1A800D99487 /* Comment.swift */; };
+		03355DD22057F1A800D99487 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DD12057F1A800D99487 /* Message.swift */; };
 		03355DD42058161200D99487 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DD32058161200D99487 /* CommentTableViewCell.swift */; };
 		03355DD6205826AF00D99487 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03355DD5205826AF00D99487 /* PhotoCollectionViewCell.swift */; };
 		03740EAB2059147D004B8014 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03740EAA2059147D004B8014 /* Extensions.swift */; };
@@ -27,12 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03338426205B0EF700DAEBD6 /* Voteable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Voteable.swift; sourceTree = "<group>"; };
+		03338428205B0F4100DAEBD6 /* Viewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewable.swift; sourceTree = "<group>"; };
 		03355DC72057BC6D00D99487 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		03355DC92057DEF500D99487 /* ProblemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTableViewCell.swift; sourceTree = "<group>"; };
 		03355DCB2057DF5B00D99487 /* SolutionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolutionTableViewCell.swift; sourceTree = "<group>"; };
 		03355DCD2057DF7700D99487 /* Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution.swift; sourceTree = "<group>"; };
 		03355DCF2057E01C00D99487 /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
-		03355DD12057F1A800D99487 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		03355DD12057F1A800D99487 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		03355DD32058161200D99487 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		03355DD5205826AF00D99487 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		03740EAA2059147D004B8014 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -92,10 +96,12 @@
 				03355DD5205826AF00D99487 /* PhotoCollectionViewCell.swift */,
 				03BD24902056E9CB00037AB1 /* Problem.swift */,
 				03355DCD2057DF7700D99487 /* Solution.swift */,
+				03355DD12057F1A800D99487 /* Message.swift */,
 				03355DCF2057E01C00D99487 /* Participant.swift */,
-				03355DD12057F1A800D99487 /* Comment.swift */,
 				03740EAA2059147D004B8014 /* Extensions.swift */,
 				03740EAC2059BF21004B8014 /* Row.swift */,
+				03338426205B0EF700DAEBD6 /* Voteable.swift */,
+				03338428205B0F4100DAEBD6 /* Viewable.swift */,
 			);
 			path = BugTracker;
 			sourceTree = "<group>";
@@ -179,7 +185,9 @@
 				03BD248F2056E7AA00037AB1 /* DetailViewController.swift in Sources */,
 				03355DD6205826AF00D99487 /* PhotoCollectionViewCell.swift in Sources */,
 				03BD24912056E9CB00037AB1 /* Problem.swift in Sources */,
-				03355DD22057F1A800D99487 /* Comment.swift in Sources */,
+				03338427205B0EF700DAEBD6 /* Voteable.swift in Sources */,
+				03338429205B0F4100DAEBD6 /* Viewable.swift in Sources */,
+				03355DD22057F1A800D99487 /* Message.swift in Sources */,
 				03740EAB2059147D004B8014 /* Extensions.swift in Sources */,
 				03BD248D2056E45A00037AB1 /* MasterViewController.swift in Sources */,
 				03355DCC2057DF5B00D99487 /* SolutionTableViewCell.swift in Sources */,

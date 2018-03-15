@@ -9,11 +9,12 @@
 import UIKit
 
 class Participant {
-    let name: String
-    let photo: UIImage
-    let role: String
+    var name: String
+    var photo: UIImage
+    var role: String
     var problems: [Problem]?
     var solutions: [Solution]?
+    
     
     var problemRating: Int {
         return (problems ?? []).reduce(0) { sum, problem in sum + problem.rating }

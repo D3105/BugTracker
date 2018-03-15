@@ -8,20 +8,16 @@
 
 import UIKit
 
-class Solution {
-    let description: String
-    let photos: [UIImage]
-    let rating: Int
-    let date: Date
-    let comments: [Comment]
-    unowned let participant: Participant
+class Solution: Message, Voteable, Viewable {
+    var photos: [UIImage]
+    var rating: Int
+    var comments: [Message]
     
-    init(description: String, photos: [UIImage], rating: Int, date: Date, comments: [Comment], participant: Participant) {
-        self.description = description
+    init(text: String, date: Date, participant: Participant, photos: [UIImage], rating: Int, comments: [Message]) {
         self.photos = photos
         self.rating = rating
-        self.date = date
         self.comments = comments
-        self.participant = participant
+        
+        super.init(text: text, date: date, participant: participant)
     }
 }

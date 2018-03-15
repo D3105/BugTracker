@@ -13,7 +13,7 @@ class SplitViewController: UISplitViewController, UISplitViewControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-//        preferredDisplayMode = .allVisible
+        preferredDisplayMode = .allVisible
         // Do any additional setup after loading the view.
     }
 
@@ -22,9 +22,9 @@ class SplitViewController: UISplitViewController, UISplitViewControllerDelegate 
         // Dispose of any resources that can be recreated.
     }
     
-//    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-//        return true
-//    }
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
 
     /*
     // MARK: - Navigation

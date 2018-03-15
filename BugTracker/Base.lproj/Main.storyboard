@@ -10,12 +10,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Проблемы-->
         <scene sceneID="d4f-ek-Hp6">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="rUt-Uu-9xs" customClass="MasterViewController" customModule="BugTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wgj-IK-oFz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1101"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -42,7 +42,7 @@
                             <outlet property="delegate" destination="rUt-Uu-9xs" id="9u9-OM-MUz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="jlD-QA-B4j"/>
+                    <navigationItem key="navigationItem" title="Проблемы" id="jlD-QA-B4j"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HCa-zZ-nd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -146,7 +146,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WD0-8r-F0r">
+                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" autorepeat="NO" minimumValue="-999999" maximumValue="999999" translatesAutoresizingMaskIntoConstraints="NO" id="WD0-8r-F0r">
                                                     <rect key="frame" x="0.0" y="37" width="94" height="29"/>
                                                 </stepper>
                                             </subviews>
@@ -261,7 +261,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="18N-Pc-WHY">
+                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" autorepeat="NO" minimumValue="-999999" maximumValue="999999" translatesAutoresizingMaskIntoConstraints="NO" id="18N-Pc-WHY">
                                                     <rect key="frame" x="0.0" y="37" width="94" height="29"/>
                                                 </stepper>
                                             </subviews>

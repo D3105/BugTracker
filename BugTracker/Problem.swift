@@ -8,35 +8,31 @@
 
 import UIKit
 
-class Problem {
-    let name: String
-    let description: String
-    let rating: Int
-    let photos: [UIImage]
-    let location: String
-    let tags: [String]
-    let date: Date
-    let solutions: [Solution]
-    let comments: [Comment]
-    unowned let participant: Participant
+class Problem: Message, Voteable, Viewable {
+    var name: String
+    var rating: Int
+    var photos: [UIImage]
+    var location: String
+    var tags: [String]
+    var solutions: [Solution]
+    var comments: [Message]
     
-    init(name: String, description: String, rating: Int,
-         photos: [UIImage], location: String, tags: [String],
-         date: Date, solutions: [Solution], comments: [Comment],
-         participant: Participant) {
+    init(text: String, date: Date, participant: Participant,
+         name: String, rating: Int, photos: [UIImage],
+         location: String, tags: [String],
+         solutions: [Solution], comments: [Message]) {
         self.name = name
-        self.description = description
         self.rating = rating
         self.photos = photos
         self.location = location
         self.tags = tags
-        self.date = date
         self.solutions = solutions
         self.comments = comments
-        self.participant = participant
+        
+        super.init(text: text, date: date, participant: participant)
     }
     
-    var rows: [Row] {
+    var rowRepresentation: [Row] {
         var result: [Row] = [.problem] + comments.map { .comment($0) }
         
         for solution in solutions {

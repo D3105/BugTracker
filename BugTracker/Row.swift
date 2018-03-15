@@ -11,5 +11,5 @@ import Foundation
 enum Row {
     case problem
     case solution(Solution)
-    case comment(Comment)
+    case comment(Message)
 }
