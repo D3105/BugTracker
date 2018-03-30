@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  ProblemsViewController.swift
 //  BugTracker
 //
 //  Created by D on 3/12/18.
@@ -7,17 +7,30 @@
 //
 
 import UIKit
+import Moya
 
 protocol ProblemSelectionDelegate: class {
     func problemSelected(_ newProblem: Problem)
 }
 
-class MasterViewController: UITableViewController {
+class ProblemsViewController: UITableViewController {
     
     var delegate: ProblemSelectionDelegate?
 
-    static let participant = Participant(name: "Румянцев М. Е.", photo: UIImage(), role: "студент")
+    static let participant = Participant(name: "Румянцев М. Е.", photo: #imageLiteral(resourceName: "Placeholder"), role: "студент")
     static let date = Date(timeIntervalSinceNow: 0)
+    
+    static let solutions = [
+        Solution(text: "дело было так...",
+                 date: date,
+                 participant: participant,
+                 photos: [#imageLiteral(resourceName: "Placeholder"), #imageLiteral(resourceName: "Placeholder"), #imageLiteral(resourceName: "swift")],
+                 rating: 5,
+                 comments: [
+                    Message(text: "тестовый комментарий",
+                            date: date,
+                            participant: participant)
+            ])]
     
     var problems = [
         Problem(text: "уже весна вроде",
@@ -28,17 +41,7 @@ class MasterViewController: UITableViewController {
                 photos: [#imageLiteral(resourceName: "swift"), #imageLiteral(resourceName: "Placeholder")],
                 location: "2-506",
                 tags: ["потолок", "снег", "2-й корпус"],
-                solutions: [
-                    Solution(text: "дело было так...",
-                             date: date,
-                             participant: participant,
-                             photos: [#imageLiteral(resourceName: "Placeholder"), #imageLiteral(resourceName: "Placeholder"), #imageLiteral(resourceName: "swift")],
-                             rating: 5,
-                             comments: [
-                                Message(text: "тестовый комментарий",
-                                        date: date,
-                                        participant: participant)
-                            ])],
+                solutions: solutions,
                 comments: []),
         Problem(text: "во время ветра дверь постоянно открываеться, лапка не засчелкиваеться до конца",
                 date: date,
@@ -83,7 +86,60 @@ class MasterViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
+        
+        ProblemsViewController.participant.problems = problems
+        ProblemsViewController.participant.solutions = ProblemsViewController.solutions
+        
+        
+        
+//        let postEndpoint: String = "http://localhost:8080"
+//        guard let url = URL(string: postEndpoint) else {
+//            print("Error: cannot create URL")
+//            return
+//        }
+//
+//        let config = URLSessionConfiguration.default
+//        let session = URLSession(configuration: config)
+//        let task = session.dataTask(with: url) { _, _, error in
+//            print(error)
+//        }
+//        task.resume()
+        
+        
+//        let provider = MoyaProvider<SimpleApi>()
+//        provider.request(.get) {
+//            result in
+//            switch result {
+//            case .success:
+//                print("success")
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+        
+        let provider = MoyaProvider<RESTApi>()
+        provider.request(.getAllProblems(minRating: nil)) {
+            result in
+            switch result {
+            case .success(let response):
+                print("success")
+                
+//                print(String(data: response.data, encoding: .utf8))
+                if let json = try! response.mapJSON() as? [[String: Any]]
+                     {
+                        let problems = json.map { ProblemTest(json: $0)! }
+                        print(problems)
+                        print()
+                    print(json)
+                }
+                print(try! response.description)
+            case .failure(let error):
+                print("failure")
+                print(error.errorDescription)
+            }
+        }
+//        let problem = ProblemTest
+//        NetworkManager.provider.request(.createProblem(newProblem: <#T##JSONEncodable#>), completion: )
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -115,9 +171,18 @@ class MasterViewController: UITableViewController {
         let selectedProblem = problems[indexPath.row]
         delegate?.problemSelected(selectedProblem)
         
-        if let detailViewController = delegate as? DetailViewController {
+        if let detailViewController = delegate as? ProblemDetailsViewController {
             splitViewController?.showDetailViewController(detailViewController, sender: nil)
         }
+    }
+    
+
+    @IBAction func cancelToProblemsViewController(_ segue: UIStoryboardSegue) {
+        
+    }
+    
+    @IBAction func saveProblem(_ segue: UIStoryboardSegue) {
+        
     }
     
 

@@ -12,9 +12,9 @@ class Participant {
     var name: String
     var photo: UIImage
     var role: String
+    var about: String?
     var problems: [Problem]?
     var solutions: [Solution]?
-    
     
     var problemRating: Int {
         return (problems ?? []).reduce(0) { sum, problem in sum + problem.rating }

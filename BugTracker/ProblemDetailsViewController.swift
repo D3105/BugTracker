@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  ProblemDetailsViewController.swift
 //  BugTracker
 //
 //  Created by D on 3/12/18.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class DetailViewController: UITableViewController {
-    
+class ProblemDetailsViewController: UITableViewController {
+   
+    //data for tableView
     var collectionViewPhotos = [UICollectionView: [UIImage]]()
     var stepperLabels = [UIStepper: UILabel]()
     var rows = [Row]()
@@ -30,9 +31,6 @@ class DetailViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.estimatedRowHeight = 315
-        tableView.rowHeight = UITableViewAutomaticDimension
         // Do any additional setup after loading the view.
     }
 
@@ -45,21 +43,13 @@ class DetailViewController: UITableViewController {
         return rows.count
     }
     
-    @objc func openProfile(_ button: UIButton) {
-        let alert = UIAlertController(title: "Profile", message: nil, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
+    @objc func openProfile(_ button: ParticipantButton) {
+        performSegue(withIdentifier: "openProfile", sender: button)
     }
     
     @objc func stepperChangeValue(_ stepper: UIStepper) {
         stepper.isEnabled = false
         stepperLabels[stepper]!.text = String(Int(stepper.value))
-    }
-    
-    func configure(participantButton: UIButton, for message: Message) {
-        participantButton.setTitle(message.participant.name, for: .normal)
-        participantButton.addTarget(self, action: #selector(openProfile(_:)), for: .touchUpInside)
     }
     
     func configure(stepper: UIStepper, for voteable: Voteable) {
@@ -88,7 +78,7 @@ class DetailViewController: UITableViewController {
             stepperLabels[cell.stepper] = cell.ratingLabel
             
             configure(stepper: cell.stepper, for: problem!)
-            configure(participantButton: cell.participantButton, for: problem!)
+            cell.participantButton.participant = problem!.participant
             configure(photoCollectionView: cell.photoCollectionView, for: problem!)
             
             return cell
@@ -103,7 +93,7 @@ class DetailViewController: UITableViewController {
             stepperLabels[cell.stepper] = cell.ratingLabel
             
             configure(stepper: cell.stepper, for: solution)
-            configure(participantButton: cell.participantButton, for: solution)
+            cell.participantButton.participant = solution.participant
             configure(photoCollectionView: cell.photoCollectionView, for: solution)
             
             return cell
@@ -114,26 +104,37 @@ class DetailViewController: UITableViewController {
             cell.commentLabel.text = comment.text
             cell.dateLabel.text = comment.date.formatted
             
-            configure(participantButton: cell.participantButton, for: comment)
+            cell.participantButton.participant = comment.participant
             
             return cell
         }
     }
 
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "openProfile",
+            let navigationController = segue.destination as? UINavigationController,
+            let tabBarController = navigationController.topViewController as? UITabBarController,
+            let tabs = tabBarController.viewControllers,
+            let profileSummaryVC = tabs[0] as? ProfileSummaryViewController,
+            let profileProblemsVC = tabs[1] as? ProfileProblemsViewController,
+            let profileSolutionsVC = tabs[2] as? ProfileSolutionsViewController,
+            let participantButton = sender as? ParticipantButton,
+            let participant = participantButton.participant {
+            profileSummaryVC.participant = participant
+            profileProblemsVC.problems = participant.problems
+            profileSolutionsVC.solutions = participant.solutions
+        }
     }
-    */
-
+    
+    @IBAction func cancelToProblemDetailsViewController(_ segue: UIStoryboardSegue) {
+        
+    }
 }
 
-extension DetailViewController: UICollectionViewDataSource {
+extension ProblemDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionViewPhotos[collectionView]!.count
     }
@@ -145,14 +146,14 @@ extension DetailViewController: UICollectionViewDataSource {
     }
 }
 
-extension DetailViewController: UICollectionViewDelegate {
+extension ProblemDetailsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let selectedCell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
-        openProfile(UIButton())
+//        openProfile(UIButton())
     }
 }
 
-extension DetailViewController: ProblemSelectionDelegate {
+extension ProblemDetailsViewController: ProblemSelectionDelegate {
     func problemSelected(_ newProblem: Problem) {
         problem = newProblem
     }

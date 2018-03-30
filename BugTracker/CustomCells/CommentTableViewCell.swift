@@ -1,5 +1,5 @@
 //
-//  SolutionTableViewCell.swift
+//  CommentTableViewCell.swift
 //  BugTracker
 //
 //  Created by D on 3/13/18.
@@ -8,15 +8,12 @@
 
 import UIKit
 
-class SolutionTableViewCell: UITableViewCell {
-
+class CommentTableViewCell: UITableViewCell {
+   
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var ratingLabel: UILabel!
-    @IBOutlet weak var photoCollectionView: UICollectionView!
-    @IBOutlet weak var stepper: UIStepper!
-    @IBOutlet weak var participantButton: UIButton!
-    @IBOutlet weak var addCommentButton: UIButton!
+    @IBOutlet weak var participantButton: ParticipantButton!
+    @IBOutlet weak var commentLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

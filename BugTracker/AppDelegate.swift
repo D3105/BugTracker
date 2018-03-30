@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         guard let splitViewController = window?.rootViewController as? UISplitViewController,
             let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
-            let masterViewController = leftNavController.topViewController as? MasterViewController,
-            let detailViewController = splitViewController.viewControllers.last as? DetailViewController
+            let masterViewController = leftNavController.topViewController as? ProblemsViewController,
+            let detailViewController = splitViewController.viewControllers.last as? ProblemDetailsViewController
             else {
             fatalError()
         }
